@@ -42,18 +42,26 @@
             this.tabPage_Gradebook = new System.Windows.Forms.TabPage();
             this.dataGridView_gradeBook = new System.Windows.Forms.DataGridView();
             this.tabPage_Province = new System.Windows.Forms.TabPage();
+            this.dataGridView_Learners = new System.Windows.Forms.DataGridView();
             this.tabPage_Compare = new System.Windows.Forms.TabPage();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.groupBox_toolBox = new System.Windows.Forms.GroupBox();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.button4 = new System.Windows.Forms.Button();
+            this.groupBox_Actions = new System.Windows.Forms.GroupBox();
+            this.btn_Calculate = new System.Windows.Forms.Button();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.lbl_Message = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.tab_Employees.SuspendLayout();
             this.tabPage_Gradebook.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_gradeBook)).BeginInit();
+            this.tabPage_Province.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Learners)).BeginInit();
             this.groupBox_toolBox.SuspendLayout();
+            this.groupBox_Actions.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -112,7 +120,7 @@
             this.btn_GradeBook.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btn_GradeBook.Location = new System.Drawing.Point(12, 42);
             this.btn_GradeBook.Name = "btn_GradeBook";
-            this.btn_GradeBook.Size = new System.Drawing.Size(283, 59);
+            this.btn_GradeBook.Size = new System.Drawing.Size(275, 59);
             this.btn_GradeBook.TabIndex = 1;
             this.btn_GradeBook.Text = "Step 1. Load GradeBook";
             this.btn_GradeBook.UseVisualStyleBackColor = true;
@@ -125,9 +133,9 @@
             this.btn_Province.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btn_Province.Location = new System.Drawing.Point(12, 107);
             this.btn_Province.Name = "btn_Province";
-            this.btn_Province.Size = new System.Drawing.Size(261, 59);
+            this.btn_Province.Size = new System.Drawing.Size(273, 59);
             this.btn_Province.TabIndex = 2;
-            this.btn_Province.Text = "Step 2. Load Learner Group";
+            this.btn_Province.Text = "Step 2. Load Learners Groups";
             this.btn_Province.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btn_Province.UseVisualStyleBackColor = true;
             // 
@@ -138,7 +146,7 @@
             this.btn_Compare.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btn_Compare.Location = new System.Drawing.Point(12, 172);
             this.btn_Compare.Name = "btn_Compare";
-            this.btn_Compare.Size = new System.Drawing.Size(261, 59);
+            this.btn_Compare.Size = new System.Drawing.Size(273, 59);
             this.btn_Compare.TabIndex = 3;
             this.btn_Compare.Text = "Step 3. Compare files";
             this.btn_Compare.UseVisualStyleBackColor = true;
@@ -153,17 +161,17 @@
             this.tab_Employees.Location = new System.Drawing.Point(301, 42);
             this.tab_Employees.Name = "tab_Employees";
             this.tab_Employees.SelectedIndex = 0;
-            this.tab_Employees.Size = new System.Drawing.Size(755, 445);
+            this.tab_Employees.Size = new System.Drawing.Size(755, 553);
             this.tab_Employees.TabIndex = 4;
             // 
             // tabPage_Gradebook
             // 
             this.tabPage_Gradebook.Controls.Add(this.dataGridView_gradeBook);
-            this.tabPage_Gradebook.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabPage_Gradebook.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabPage_Gradebook.Location = new System.Drawing.Point(4, 23);
             this.tabPage_Gradebook.Name = "tabPage_Gradebook";
             this.tabPage_Gradebook.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_Gradebook.Size = new System.Drawing.Size(747, 418);
+            this.tabPage_Gradebook.Size = new System.Drawing.Size(747, 526);
             this.tabPage_Gradebook.TabIndex = 0;
             this.tabPage_Gradebook.Text = "Gradebook";
             this.tabPage_Gradebook.UseVisualStyleBackColor = true;
@@ -173,28 +181,48 @@
             this.dataGridView_gradeBook.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_gradeBook.Location = new System.Drawing.Point(6, 6);
             this.dataGridView_gradeBook.Name = "dataGridView_gradeBook";
-            this.dataGridView_gradeBook.Size = new System.Drawing.Size(735, 406);
+            this.dataGridView_gradeBook.Size = new System.Drawing.Size(735, 524);
             this.dataGridView_gradeBook.TabIndex = 0;
             // 
             // tabPage_Province
             // 
-            this.tabPage_Province.Location = new System.Drawing.Point(4, 25);
+            this.tabPage_Province.Controls.Add(this.dataGridView_Learners);
+            this.tabPage_Province.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabPage_Province.Location = new System.Drawing.Point(4, 23);
             this.tabPage_Province.Name = "tabPage_Province";
             this.tabPage_Province.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_Province.Size = new System.Drawing.Size(650, 400);
+            this.tabPage_Province.Size = new System.Drawing.Size(747, 526);
             this.tabPage_Province.TabIndex = 1;
             this.tabPage_Province.Text = "Learners Group";
             this.tabPage_Province.UseVisualStyleBackColor = true;
             // 
+            // dataGridView_Learners
+            // 
+            this.dataGridView_Learners.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_Learners.Location = new System.Drawing.Point(6, 3);
+            this.dataGridView_Learners.Name = "dataGridView_Learners";
+            this.dataGridView_Learners.Size = new System.Drawing.Size(735, 517);
+            this.dataGridView_Learners.TabIndex = 0;
+            // 
             // tabPage_Compare
             // 
-            this.tabPage_Compare.Location = new System.Drawing.Point(4, 25);
+            this.tabPage_Compare.Location = new System.Drawing.Point(4, 23);
             this.tabPage_Compare.Name = "tabPage_Compare";
             this.tabPage_Compare.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_Compare.Size = new System.Drawing.Size(650, 400);
+            this.tabPage_Compare.Size = new System.Drawing.Size(747, 526);
             this.tabPage_Compare.TabIndex = 2;
             this.tabPage_Compare.Text = "Missing from GradeBook";
             this.tabPage_Compare.UseVisualStyleBackColor = true;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Location = new System.Drawing.Point(4, 23);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(747, 418);
+            this.tabPage1.TabIndex = 3;
+            this.tabPage1.Text = "GradeBook merged with missing Learners ";
+            this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // button1
             // 
@@ -249,22 +277,12 @@
             this.groupBox_toolBox.TabStop = false;
             this.groupBox_toolBox.Text = "Tools";
             // 
-            // tabPage1
-            // 
-            this.tabPage1.Location = new System.Drawing.Point(4, 25);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(747, 400);
-            this.tabPage1.TabIndex = 3;
-            this.tabPage1.Text = "GradeBook merged with missing Learners ";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
             // button4
             // 
             this.button4.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button4.Image = ((System.Drawing.Image)(resources.GetObject("button4.Image")));
             this.button4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button4.Location = new System.Drawing.Point(12, 245);
+            this.button4.Location = new System.Drawing.Point(12, 240);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(275, 55);
             this.button4.TabIndex = 9;
@@ -272,11 +290,56 @@
             this.button4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button4.UseVisualStyleBackColor = true;
             // 
+            // groupBox_Actions
+            // 
+            this.groupBox_Actions.Controls.Add(this.btn_Calculate);
+            this.groupBox_Actions.Controls.Add(this.radioButton1);
+            this.groupBox_Actions.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox_Actions.Location = new System.Drawing.Point(12, 301);
+            this.groupBox_Actions.Name = "groupBox_Actions";
+            this.groupBox_Actions.Size = new System.Drawing.Size(275, 111);
+            this.groupBox_Actions.TabIndex = 10;
+            this.groupBox_Actions.TabStop = false;
+            this.groupBox_Actions.Text = "Actions";
+            // 
+            // btn_Calculate
+            // 
+            this.btn_Calculate.Location = new System.Drawing.Point(93, 82);
+            this.btn_Calculate.Name = "btn_Calculate";
+            this.btn_Calculate.Size = new System.Drawing.Size(87, 23);
+            this.btn_Calculate.TabIndex = 11;
+            this.btn_Calculate.Text = "Calculate";
+            this.btn_Calculate.UseVisualStyleBackColor = true;
+            this.btn_Calculate.Click += new System.EventHandler(this.btn_Calculate_Click);
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Location = new System.Drawing.Point(6, 22);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(267, 20);
+            this.radioButton1.TabIndex = 0;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "Total employees with certificates";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            // 
+            // lbl_Message
+            // 
+            this.lbl_Message.AutoSize = true;
+            this.lbl_Message.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_Message.Location = new System.Drawing.Point(15, 432);
+            this.lbl_Message.Name = "lbl_Message";
+            this.lbl_Message.Size = new System.Drawing.Size(145, 14);
+            this.lbl_Message.TabIndex = 11;
+            this.lbl_Message.Text = "Output Message Here";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1257, 499);
+            this.ClientSize = new System.Drawing.Size(1257, 607);
+            this.Controls.Add(this.lbl_Message);
+            this.Controls.Add(this.groupBox_Actions);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.groupBox_toolBox);
             this.Controls.Add(this.tab_Employees);
@@ -293,7 +356,11 @@
             this.tab_Employees.ResumeLayout(false);
             this.tabPage_Gradebook.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_gradeBook)).EndInit();
+            this.tabPage_Province.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Learners)).EndInit();
             this.groupBox_toolBox.ResumeLayout(false);
+            this.groupBox_Actions.ResumeLayout(false);
+            this.groupBox_Actions.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -321,6 +388,11 @@
         private System.Windows.Forms.GroupBox groupBox_toolBox;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.GroupBox groupBox_Actions;
+        private System.Windows.Forms.Button btn_Calculate;
+        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.DataGridView dataGridView_Learners;
+        private System.Windows.Forms.Label lbl_Message;
     }
 }
 

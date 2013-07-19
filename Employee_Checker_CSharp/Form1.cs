@@ -36,7 +36,7 @@ namespace Employee_Checker_CSharp
 
         private void loadExcelFile(string filePath, DataGridView aDataGrid)
         {
-            string pathConn = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + gradeBookPath + ";Extended Properties=\"Excel 8.0;HDR=Yes;\";";
+            string pathConn = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + filePath + ";Extended Properties=\"Excel 8.0;HDR=Yes;\";";
             OleDbConnection conn = new OleDbConnection(pathConn);
 
             List<string> sheets = ListSheetInExcel(gradeBookPath);
@@ -47,6 +47,8 @@ namespace Employee_Checker_CSharp
             myDataAdapter.Fill(dt);
 
             aDataGrid.DataSource = dt;
+
+            lbl_Message.Text = "There are " + aDataGrid.RowCount + " employees";
              
         }
 
@@ -79,7 +81,7 @@ namespace Employee_Checker_CSharp
             {
                 conn.Open();
                 DataTable dtSheet = conn.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
-                //List<string> listSheet = new List<string>();
+
                 foreach (DataRow drSheet in dtSheet.Rows)
                 {
                     if (drSheet["TABLE_NAME"].ToString().Contains("$"))//checks whether row contains '_xlnm#_FilterDatabase' or sheet name(i.e. sheet name always ends with $ sign)
@@ -91,11 +93,30 @@ namespace Employee_Checker_CSharp
             return listSheet;
         }
 
-        /*
-        private void test()
+        private void displayCertificateMembers(string filePath, DataGridView aDataGridView)
         {
-            tab_Employees.
+            string pathConn = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + filePath + ";Extended Properties=\"Excel 8.0;HDR=Yes;\";";
+            OleDbConnection conn = new OleDbConnection(pathConn);
+
+            List<string> sheets = ListSheetInExcel(gradeBookPath);
+            string query = "Select [Created By], [Certificate Issued] from [" + sheets[0] + "] where [Certificate Issued]=TRUE";
+            Console.WriteLine(query);
+
+            OleDbDataAdapter myDataAdapter = new OleDbDataAdapter(query, conn);
+            DataTable dt = new DataTable();
+
+            myDataAdapter.Fill(dt);
+
+            aDataGridView.DataSource = dt;
+
+            lbl_Message.Text = "There are: " + aDataGridView.RowCount + " employees with Certificates";
+  
         }
-         */ 
+
+        private void btn_Calculate_Click(object sender, EventArgs e)
+        {
+            displayCertificateMembers(gradeBookPath, dataGridView_Learners);
+            tabPage_Province.Show();
+        }
     }
 }
