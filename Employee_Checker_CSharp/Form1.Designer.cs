@@ -161,7 +161,7 @@
             this.tab_Employees.Location = new System.Drawing.Point(301, 42);
             this.tab_Employees.Name = "tab_Employees";
             this.tab_Employees.SelectedIndex = 0;
-            this.tab_Employees.Size = new System.Drawing.Size(755, 553);
+            this.tab_Employees.Size = new System.Drawing.Size(755, 506);
             this.tab_Employees.TabIndex = 4;
             // 
             // tabPage_Gradebook
@@ -171,17 +171,19 @@
             this.tabPage_Gradebook.Location = new System.Drawing.Point(4, 23);
             this.tabPage_Gradebook.Name = "tabPage_Gradebook";
             this.tabPage_Gradebook.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_Gradebook.Size = new System.Drawing.Size(747, 526);
+            this.tabPage_Gradebook.Size = new System.Drawing.Size(747, 479);
             this.tabPage_Gradebook.TabIndex = 0;
             this.tabPage_Gradebook.Text = "Gradebook";
             this.tabPage_Gradebook.UseVisualStyleBackColor = true;
             // 
             // dataGridView_gradeBook
             // 
+            this.dataGridView_gradeBook.AllowUserToAddRows = false;
+            this.dataGridView_gradeBook.AllowUserToDeleteRows = false;
             this.dataGridView_gradeBook.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_gradeBook.Location = new System.Drawing.Point(6, 6);
             this.dataGridView_gradeBook.Name = "dataGridView_gradeBook";
-            this.dataGridView_gradeBook.Size = new System.Drawing.Size(735, 524);
+            this.dataGridView_gradeBook.Size = new System.Drawing.Size(735, 467);
             this.dataGridView_gradeBook.TabIndex = 0;
             // 
             // tabPage_Province
@@ -219,7 +221,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 23);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(747, 418);
+            this.tabPage1.Size = new System.Drawing.Size(747, 526);
             this.tabPage1.TabIndex = 3;
             this.tabPage1.Text = "GradeBook merged with missing Learners ";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -326,10 +328,10 @@
             // lbl_Message
             // 
             this.lbl_Message.AutoSize = true;
-            this.lbl_Message.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_Message.Location = new System.Drawing.Point(15, 432);
+            this.lbl_Message.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_Message.Location = new System.Drawing.Point(763, 562);
             this.lbl_Message.Name = "lbl_Message";
-            this.lbl_Message.Size = new System.Drawing.Size(145, 14);
+            this.lbl_Message.Size = new System.Drawing.Size(165, 16);
             this.lbl_Message.TabIndex = 11;
             this.lbl_Message.Text = "Output Message Here";
             // 

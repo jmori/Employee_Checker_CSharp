@@ -9,17 +9,19 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.OleDb;
 using System.IO;
+using Outlook = Microsoft.Office.Interop.Outlook;
 
 namespace Employee_Checker_CSharp
 {
     public partial class Form1 : Form
     {
         private string gradeBookPath;
-        private string provincePath;
+        private Outlook.Application OlApp = null;
 
         public Form1()
         {
             InitializeComponent();
+            OlApp = new Outlook.Application();
         }
 
         private void btn_GradeBook_Click(object sender, EventArgs e)
@@ -40,7 +42,7 @@ namespace Employee_Checker_CSharp
             OleDbConnection conn = new OleDbConnection(pathConn);
 
             List<string> sheets = ListSheetInExcel(gradeBookPath);
-            
+
             OleDbDataAdapter myDataAdapter = new OleDbDataAdapter("Select * from [" + sheets[0] + "]", conn);
             DataTable dt = new DataTable();
 
@@ -49,7 +51,7 @@ namespace Employee_Checker_CSharp
             aDataGrid.DataSource = dt;
 
             lbl_Message.Text = "There are " + aDataGrid.RowCount + " employees";
-             
+
         }
 
         /*
@@ -74,9 +76,9 @@ namespace Employee_Checker_CSharp
                 sbConnection.Provider = "Microsoft.ACE.OLEDB.12.0";
                 strExtendedProperties = "Excel 12.0;HDR=Yes;IMEX=1";
             }
-            
+
             sbConnection.Add("Extended Properties", strExtendedProperties);
-            
+
             using (OleDbConnection conn = new OleDbConnection(sbConnection.ToString()))
             {
                 conn.Open();
@@ -110,13 +112,105 @@ namespace Employee_Checker_CSharp
             aDataGridView.DataSource = dt;
 
             lbl_Message.Text = "There are: " + aDataGridView.RowCount + " employees with Certificates";
-  
+
         }
 
         private void btn_Calculate_Click(object sender, EventArgs e)
         {
-            displayCertificateMembers(gradeBookPath, dataGridView_Learners);
-            tabPage_Province.Show();
+            //Need to redesign this, it wont work with other things
+            //createTab("With Certificates");
+            //showContactFolderFromOutlook();
+            //AccessContacts("tester");
+            //listEmployees();
+            EnumerateGAL();
+        }
+
+        private void createTab(string nameTab)
+        {
+            TabPage newTab = new TabPage(nameTab);
+            tab_Employees.Controls.Add(newTab);
+            tab_Employees.SelectTab(newTab);
+
+            DataGridView dataGrid_tmp = new DataGridView();
+            dataGrid_tmp.Width = dataGridView_gradeBook.Width;
+            dataGrid_tmp.Height = dataGridView_gradeBook.Height;
+            newTab.Controls.Add(dataGrid_tmp);
+
+            displayCertificateMembers(gradeBookPath, dataGrid_tmp);
+            //newTab.Refresh();
+        }
+
+        private void showContactFolderFromOutlook()
+        {
+            Outlook.AddressLists addrLists;
+            Outlook.Folder contactsFolder = OlApp.Session.GetDefaultFolder(Outlook.OlDefaultFolders.olFolderContacts)as Outlook.Folder;
+            addrLists = OlApp.Session.AddressLists;
+            foreach (Outlook.AddressList addrList in addrLists)
+            {
+                Outlook.Folder testFolder = addrList.GetContactsFolder() as Outlook.Folder;
+                if (testFolder != null)
+                {
+                    // Test to determine if Folder returned
+                    // by GetContactsFolder has same EntryID
+                    // as default Contacts folder.
+                    if (OlApp.Session.CompareEntryIDs(contactsFolder.EntryID, testFolder.EntryID))
+                    {
+                        Outlook.SelectNamesDialog snd = OlApp.Session.GetSelectNamesDialog();
+                        snd.InitialAddressList = addrList;
+                        snd.Display();
+                    }
+                }
+            }
+        }
+        
+        //This method only looks inside the local contacts, need to modify it to access the global list.
+        private void AccessContacts(string findLastName)
+        {
+            Outlook.MAPIFolder folderContacts = OlApp.ActiveExplorer().Session.GetDefaultFolder(Outlook.OlDefaultFolders.olFolderContacts);
+            Outlook.Items searchFolder = folderContacts.Items;
+            int counter = 0;
+            foreach (Outlook.ContactItem foundContact in searchFolder)
+            {
+                if (foundContact.LastName.Contains(findLastName))
+                {
+                    foundContact.Display(false);
+                    counter = counter + 1;
+                }
+            }
+            MessageBox.Show("You have " + counter + " contacts with last names that contain " + findLastName + ".");
+        }
+
+        private void listEmployees()
+        {
+            Outlook.AddressLists addrlists = OlApp.Application.Session.AddressLists;
+            Outlook.AddressList gal = addrlists["Global Address List"];
+        }
+
+        private void EnumerateGAL()
+        {
+            Outlook.AddressList gal = OlApp.Application.Session.GetGlobalAddressList();
+            if (gal != null)
+            {
+                for (int i = 1; i <= Math.Min(100, gal.AddressEntries.Count - 1); i++)
+                {
+                    Outlook.AddressEntry addrEntry = gal.AddressEntries[i];
+                    if (addrEntry.AddressEntryUserType ==
+                        Outlook.OlAddressEntryUserType.
+                        olExchangeUserAddressEntry
+                        || addrEntry.AddressEntryUserType ==
+                        Outlook.OlAddressEntryUserType.
+                        olExchangeRemoteUserAddressEntry)
+                    {
+                        Outlook.ExchangeUser exchUser = addrEntry.GetExchangeUser();
+                        Console.WriteLine("1st if: " + exchUser.Name + " " + exchUser.PrimarySmtpAddress + " " + exchUser.OfficeLocation);
+                    }
+                    if (addrEntry.AddressEntryUserType == Outlook.OlAddressEntryUserType.olExchangeDistributionListAddressEntry)
+                    {
+                        Outlook.ExchangeDistributionList exchDL = addrEntry.GetExchangeDistributionList();
+                        Console.WriteLine("2nd if: " + exchDL.Name + " " + exchDL.PrimarySmtpAddress + " " + exchDL.Address);
+                    }
+                }
+            }
         }
     }
 }
