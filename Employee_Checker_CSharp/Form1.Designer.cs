@@ -41,7 +41,9 @@
             this.tab_Employees = new System.Windows.Forms.TabControl();
             this.tabPage_Gradebook = new System.Windows.Forms.TabPage();
             this.dataGridView_gradeBook = new System.Windows.Forms.DataGridView();
-            this.tabPage_Province = new System.Windows.Forms.TabPage();
+            this.tabPage_Learners = new System.Windows.Forms.TabPage();
+            this.btn_convertLearners = new System.Windows.Forms.Button();
+            this.richTextBox_Learners = new System.Windows.Forms.RichTextBox();
             this.dataGridView_Learners = new System.Windows.Forms.DataGridView();
             this.tabPage_Compare = new System.Windows.Forms.TabPage();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -54,11 +56,12 @@
             this.btn_Calculate = new System.Windows.Forms.Button();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.lbl_Message = new System.Windows.Forms.Label();
+            this.btn_clearRichTextBox = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.tab_Employees.SuspendLayout();
             this.tabPage_Gradebook.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_gradeBook)).BeginInit();
-            this.tabPage_Province.SuspendLayout();
+            this.tabPage_Learners.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Learners)).BeginInit();
             this.groupBox_toolBox.SuspendLayout();
             this.groupBox_Actions.SuspendLayout();
@@ -138,6 +141,7 @@
             this.btn_Province.Text = "Step 2. Load Learners Groups";
             this.btn_Province.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btn_Province.UseVisualStyleBackColor = true;
+            this.btn_Province.Click += new System.EventHandler(this.btn_Province_Click);
             // 
             // btn_Compare
             // 
@@ -154,7 +158,7 @@
             // tab_Employees
             // 
             this.tab_Employees.Controls.Add(this.tabPage_Gradebook);
-            this.tab_Employees.Controls.Add(this.tabPage_Province);
+            this.tab_Employees.Controls.Add(this.tabPage_Learners);
             this.tab_Employees.Controls.Add(this.tabPage_Compare);
             this.tab_Employees.Controls.Add(this.tabPage1);
             this.tab_Employees.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -186,24 +190,48 @@
             this.dataGridView_gradeBook.Size = new System.Drawing.Size(735, 467);
             this.dataGridView_gradeBook.TabIndex = 0;
             // 
-            // tabPage_Province
+            // tabPage_Learners
             // 
-            this.tabPage_Province.Controls.Add(this.dataGridView_Learners);
-            this.tabPage_Province.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabPage_Province.Location = new System.Drawing.Point(4, 23);
-            this.tabPage_Province.Name = "tabPage_Province";
-            this.tabPage_Province.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_Province.Size = new System.Drawing.Size(747, 526);
-            this.tabPage_Province.TabIndex = 1;
-            this.tabPage_Province.Text = "Learners Group";
-            this.tabPage_Province.UseVisualStyleBackColor = true;
+            this.tabPage_Learners.Controls.Add(this.btn_clearRichTextBox);
+            this.tabPage_Learners.Controls.Add(this.btn_convertLearners);
+            this.tabPage_Learners.Controls.Add(this.richTextBox_Learners);
+            this.tabPage_Learners.Controls.Add(this.dataGridView_Learners);
+            this.tabPage_Learners.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabPage_Learners.Location = new System.Drawing.Point(4, 23);
+            this.tabPage_Learners.Name = "tabPage_Learners";
+            this.tabPage_Learners.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage_Learners.Size = new System.Drawing.Size(747, 479);
+            this.tabPage_Learners.TabIndex = 1;
+            this.tabPage_Learners.Text = "Learners Group";
+            this.tabPage_Learners.UseVisualStyleBackColor = true;
+            // 
+            // btn_convertLearners
+            // 
+            this.btn_convertLearners.Image = ((System.Drawing.Image)(resources.GetObject("btn_convertLearners.Image")));
+            this.btn_convertLearners.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_convertLearners.Location = new System.Drawing.Point(154, 191);
+            this.btn_convertLearners.Name = "btn_convertLearners";
+            this.btn_convertLearners.Size = new System.Drawing.Size(117, 87);
+            this.btn_convertLearners.TabIndex = 2;
+            this.btn_convertLearners.Text = "      Convert";
+            this.btn_convertLearners.UseVisualStyleBackColor = true;
+            this.btn_convertLearners.Click += new System.EventHandler(this.btn_convertLearners_Click);
+            // 
+            // richTextBox_Learners
+            // 
+            this.richTextBox_Learners.Location = new System.Drawing.Point(154, 15);
+            this.richTextBox_Learners.Name = "richTextBox_Learners";
+            this.richTextBox_Learners.Size = new System.Drawing.Size(469, 158);
+            this.richTextBox_Learners.TabIndex = 1;
+            this.richTextBox_Learners.Text = "";
+            this.richTextBox_Learners.TextChanged += new System.EventHandler(this.richTextBox_Learners_TextChanged);
             // 
             // dataGridView_Learners
             // 
             this.dataGridView_Learners.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView_Learners.Location = new System.Drawing.Point(6, 3);
+            this.dataGridView_Learners.Location = new System.Drawing.Point(308, 185);
             this.dataGridView_Learners.Name = "dataGridView_Learners";
-            this.dataGridView_Learners.Size = new System.Drawing.Size(735, 517);
+            this.dataGridView_Learners.Size = new System.Drawing.Size(315, 266);
             this.dataGridView_Learners.TabIndex = 0;
             // 
             // tabPage_Compare
@@ -211,7 +239,7 @@
             this.tabPage_Compare.Location = new System.Drawing.Point(4, 23);
             this.tabPage_Compare.Name = "tabPage_Compare";
             this.tabPage_Compare.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_Compare.Size = new System.Drawing.Size(747, 526);
+            this.tabPage_Compare.Size = new System.Drawing.Size(747, 479);
             this.tabPage_Compare.TabIndex = 2;
             this.tabPage_Compare.Text = "Missing from GradeBook";
             this.tabPage_Compare.UseVisualStyleBackColor = true;
@@ -221,7 +249,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 23);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(747, 526);
+            this.tabPage1.Size = new System.Drawing.Size(747, 479);
             this.tabPage1.TabIndex = 3;
             this.tabPage1.Text = "GradeBook merged with missing Learners ";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -335,6 +363,18 @@
             this.lbl_Message.TabIndex = 11;
             this.lbl_Message.Text = "Output Message Here";
             // 
+            // btn_clearRichTextBox
+            // 
+            this.btn_clearRichTextBox.Image = ((System.Drawing.Image)(resources.GetObject("btn_clearRichTextBox.Image")));
+            this.btn_clearRichTextBox.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_clearRichTextBox.Location = new System.Drawing.Point(154, 284);
+            this.btn_clearRichTextBox.Name = "btn_clearRichTextBox";
+            this.btn_clearRichTextBox.Size = new System.Drawing.Size(117, 80);
+            this.btn_clearRichTextBox.TabIndex = 3;
+            this.btn_clearRichTextBox.Text = "     Reset";
+            this.btn_clearRichTextBox.UseVisualStyleBackColor = true;
+            this.btn_clearRichTextBox.Click += new System.EventHandler(this.btn_clearRichTextBox_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -358,7 +398,7 @@
             this.tab_Employees.ResumeLayout(false);
             this.tabPage_Gradebook.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_gradeBook)).EndInit();
-            this.tabPage_Province.ResumeLayout(false);
+            this.tabPage_Learners.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Learners)).EndInit();
             this.groupBox_toolBox.ResumeLayout(false);
             this.groupBox_Actions.ResumeLayout(false);
@@ -381,7 +421,7 @@
         private System.Windows.Forms.Button btn_Compare;
         private System.Windows.Forms.TabControl tab_Employees;
         private System.Windows.Forms.TabPage tabPage_Gradebook;
-        private System.Windows.Forms.TabPage tabPage_Province;
+        private System.Windows.Forms.TabPage tabPage_Learners;
         private System.Windows.Forms.TabPage tabPage_Compare;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
@@ -395,6 +435,9 @@
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.DataGridView dataGridView_Learners;
         private System.Windows.Forms.Label lbl_Message;
+        private System.Windows.Forms.Button btn_convertLearners;
+        private System.Windows.Forms.RichTextBox richTextBox_Learners;
+        public System.Windows.Forms.Button btn_clearRichTextBox;
     }
 }
 

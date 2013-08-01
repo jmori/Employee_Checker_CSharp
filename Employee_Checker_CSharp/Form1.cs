@@ -17,11 +17,14 @@ namespace Employee_Checker_CSharp
     {
         private string gradeBookPath;
         private Outlook.Application OlApp = null;
+        private int employeeCount;
+        private bool listParsed;
 
         public Form1()
         {
             InitializeComponent();
             OlApp = new Outlook.Application();
+            listParsed = false;
         }
 
         private void btn_GradeBook_Click(object sender, EventArgs e)
@@ -34,6 +37,11 @@ namespace Employee_Checker_CSharp
                 gradeBookPath = openGradeBook.FileName;
                 loadExcelFile(gradeBookPath, dataGridView_gradeBook);
             }
+        }
+
+        private void displayMessage(string aMessage)
+        {
+            lbl_Message.Text = aMessage;
         }
 
         private void loadExcelFile(string filePath, DataGridView aDataGrid)
@@ -50,7 +58,8 @@ namespace Employee_Checker_CSharp
 
             aDataGrid.DataSource = dt;
 
-            lbl_Message.Text = "There are " + aDataGrid.RowCount + " employees";
+            //lbl_Message.Text = "There are " + aDataGrid.RowCount + " employees";
+            displayMessage("There are " + aDataGrid.RowCount + " employees");
 
         }
 
@@ -111,7 +120,8 @@ namespace Employee_Checker_CSharp
 
             aDataGridView.DataSource = dt;
 
-            lbl_Message.Text = "There are: " + aDataGridView.RowCount + " employees with Certificates";
+            //lbl_Message.Text = "There are: " + aDataGridView.RowCount + " employees with Certificates";
+            displayMessage("There are: " + aDataGridView.RowCount + " employees with Certificates");
 
         }
 
@@ -122,7 +132,7 @@ namespace Employee_Checker_CSharp
             //showContactFolderFromOutlook();
             //AccessContacts("tester");
             //listEmployees();
-            EnumerateGAL();
+            //EnumerateGAL();
         }
 
         private void createTab(string nameTab)
@@ -167,6 +177,7 @@ namespace Employee_Checker_CSharp
         private void AccessContacts(string findLastName)
         {
             Outlook.MAPIFolder folderContacts = OlApp.ActiveExplorer().Session.GetDefaultFolder(Outlook.OlDefaultFolders.olFolderContacts);
+            //OlApp.ActiveExplorer().Session.GetDefaultFolder(Outlook.)
             Outlook.Items searchFolder = folderContacts.Items;
             int counter = 0;
             foreach (Outlook.ContactItem foundContact in searchFolder)
@@ -202,15 +213,118 @@ namespace Employee_Checker_CSharp
                         olExchangeRemoteUserAddressEntry)
                     {
                         Outlook.ExchangeUser exchUser = addrEntry.GetExchangeUser();
-                        Console.WriteLine("1st if: " + exchUser.Name + " " + exchUser.PrimarySmtpAddress + " " + exchUser.OfficeLocation);
+                        /* in case i need this later: + exchUser.PrimarySmtpAddress + " "*/
+                        //if (exchUser.OfficeLocation == "CNIB Center")
+                        Console.WriteLine("1st if: " + exchUser.Name + " " + exchUser.OfficeLocation);
                     }
                     if (addrEntry.AddressEntryUserType == Outlook.OlAddressEntryUserType.olExchangeDistributionListAddressEntry)
                     {
                         Outlook.ExchangeDistributionList exchDL = addrEntry.GetExchangeDistributionList();
-                        Console.WriteLine("2nd if: " + exchDL.Name + " " + exchDL.PrimarySmtpAddress + " " + exchDL.Address);
+                        //Console.WriteLine("2nd if: " + exchDL.Name + " " + exchDL.PrimarySmtpAddress + " " + exchDL.Address);
                     }
                 }
             }
+        }
+
+        private void btn_Province_Click(object sender, EventArgs e)
+        {
+            tab_Employees.SelectTab(tabPage_Learners);
+        }
+
+        private void btn_convertLearners_Click(object sender, EventArgs e)
+        {
+            if (!listParsed)
+            {
+                string[] employees = parseString(richTextBox_Learners.Text);
+                string newList = null;
+
+                for (int i = 0; i < employees.Length; i++)
+                    newList += employees[i] + "\n";
+
+                richTextBox_Learners.Text = newList;
+            }
+
+            //Fills up the dataGridView in this tab
+            createTable(richTextBox_Learners);
+            
+            richTextBox_Learners.ReadOnly = true;
+        }
+
+        private string[] parseString(string line)
+        {
+            string employeeLine = line;
+            string[] lines = employeeLine.Split(';');
+
+            //Delete their email address, if there is one attached
+            string[] employees = new string[lines.Length];
+            int index;
+            for (int i = 0; i < lines.Length; i++)
+            {
+                if (lines[i].Contains("<"))
+                {
+                    index = lines[i].IndexOf("<");
+                    if (index != -1)
+                        employees[i] = lines[i].Substring(0, index);
+                }
+                else
+                    employees[i] = lines[i];
+            }
+            employeeCount = employees.Length;
+            listParsed = true;
+
+            return employees;
+        }
+
+        private void createTable(RichTextBox aRichTextBox)
+        {
+            DataTable dt = new DataTable("Learners");
+
+            //Create the columns in the datatable
+            DataColumn c0 = new DataColumn("#");
+            DataColumn c1 = new DataColumn("Name");
+
+            //Add the created columns to the Datatable
+            dt.Columns.Add(c0);
+            dt.Columns.Add(c1);
+
+            DataRow[] row = new DataRow[employeeCount];
+
+            //Create rows
+            for (int i = 0; i < employeeCount; i++)
+            {
+                row[i] = dt.NewRow();
+                row[i].SetField(0, i);
+                row[i].SetField(1, aRichTextBox.Lines[i]);
+
+                dt.Rows.Add(row[i]);
+            }
+
+            dataGridView_Learners.DataSource = dt;
+
+            displayMessage("There are " + richTextBox_Learners.Lines.Length + " employees in this group");
+        }
+
+        private void resetLearnersTab()
+        {
+            richTextBox_Learners.ReadOnly = false;
+            richTextBox_Learners.ResetText();
+            listParsed = false;
+
+            //Resetting the DataGridView
+            if (dataGridView_Learners.DataSource != null)
+                dataGridView_Learners.DataSource = null;
+            else
+                dataGridView_Learners.Rows.Clear();
+        }
+
+        private void btn_clearRichTextBox_Click(object sender, EventArgs e)
+        {
+            resetLearnersTab();
+        }
+
+        private void richTextBox_Learners_TextChanged(object sender, EventArgs e)
+        {
+            btn_Compare.Enabled = true;
         }
     }
 }
