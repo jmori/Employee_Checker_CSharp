@@ -42,6 +42,7 @@
             this.tabPage_Gradebook = new System.Windows.Forms.TabPage();
             this.dataGridView_gradeBook = new System.Windows.Forms.DataGridView();
             this.tabPage_Learners = new System.Windows.Forms.TabPage();
+            this.btn_clearRichTextBox = new System.Windows.Forms.Button();
             this.btn_convertLearners = new System.Windows.Forms.Button();
             this.richTextBox_Learners = new System.Windows.Forms.RichTextBox();
             this.dataGridView_Learners = new System.Windows.Forms.DataGridView();
@@ -56,7 +57,6 @@
             this.btn_Calculate = new System.Windows.Forms.Button();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.lbl_Message = new System.Windows.Forms.Label();
-            this.btn_clearRichTextBox = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.tab_Employees.SuspendLayout();
             this.tabPage_Gradebook.SuspendLayout();
@@ -154,6 +154,7 @@
             this.btn_Compare.TabIndex = 3;
             this.btn_Compare.Text = "Step 3. Compare files";
             this.btn_Compare.UseVisualStyleBackColor = true;
+            this.btn_Compare.Click += new System.EventHandler(this.btn_Compare_Click);
             // 
             // tab_Employees
             // 
@@ -204,6 +205,18 @@
             this.tabPage_Learners.TabIndex = 1;
             this.tabPage_Learners.Text = "Learners Group";
             this.tabPage_Learners.UseVisualStyleBackColor = true;
+            // 
+            // btn_clearRichTextBox
+            // 
+            this.btn_clearRichTextBox.Image = ((System.Drawing.Image)(resources.GetObject("btn_clearRichTextBox.Image")));
+            this.btn_clearRichTextBox.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_clearRichTextBox.Location = new System.Drawing.Point(154, 284);
+            this.btn_clearRichTextBox.Name = "btn_clearRichTextBox";
+            this.btn_clearRichTextBox.Size = new System.Drawing.Size(117, 80);
+            this.btn_clearRichTextBox.TabIndex = 3;
+            this.btn_clearRichTextBox.Text = "     Reset";
+            this.btn_clearRichTextBox.UseVisualStyleBackColor = true;
+            this.btn_clearRichTextBox.Click += new System.EventHandler(this.btn_clearRichTextBox_Click);
             // 
             // btn_convertLearners
             // 
@@ -362,18 +375,6 @@
             this.lbl_Message.Size = new System.Drawing.Size(165, 16);
             this.lbl_Message.TabIndex = 11;
             this.lbl_Message.Text = "Output Message Here";
-            // 
-            // btn_clearRichTextBox
-            // 
-            this.btn_clearRichTextBox.Image = ((System.Drawing.Image)(resources.GetObject("btn_clearRichTextBox.Image")));
-            this.btn_clearRichTextBox.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_clearRichTextBox.Location = new System.Drawing.Point(154, 284);
-            this.btn_clearRichTextBox.Name = "btn_clearRichTextBox";
-            this.btn_clearRichTextBox.Size = new System.Drawing.Size(117, 80);
-            this.btn_clearRichTextBox.TabIndex = 3;
-            this.btn_clearRichTextBox.Text = "     Reset";
-            this.btn_clearRichTextBox.UseVisualStyleBackColor = true;
-            this.btn_clearRichTextBox.Click += new System.EventHandler(this.btn_clearRichTextBox_Click);
             // 
             // Form1
             // 

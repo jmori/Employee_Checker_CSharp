@@ -37,6 +37,8 @@ namespace Employee_Checker_CSharp
                 gradeBookPath = openGradeBook.FileName;
                 loadExcelFile(gradeBookPath, dataGridView_gradeBook);
             }
+
+            tab_Employees.SelectTab(tabPage_Gradebook);
         }
 
         private void displayMessage(string aMessage)
@@ -231,17 +233,14 @@ namespace Employee_Checker_CSharp
             tab_Employees.SelectTab(tabPage_Learners);
         }
 
+        //This will be on the Learners tab
         private void btn_convertLearners_Click(object sender, EventArgs e)
         {
             if (!listParsed)
             {
                 string[] employees = parseString(richTextBox_Learners.Text);
-                string newList = null;
 
-                for (int i = 0; i < employees.Length; i++)
-                    newList += employees[i] + "\n";
-
-                richTextBox_Learners.Text = newList;
+                richTextBox_Learners.Lines = employees;
             }
 
             //Fills up the dataGridView in this tab
@@ -293,7 +292,7 @@ namespace Employee_Checker_CSharp
             for (int i = 0; i < employeeCount; i++)
             {
                 row[i] = dt.NewRow();
-                row[i].SetField(0, i);
+                row[i].SetField(0, i+1);
                 row[i].SetField(1, aRichTextBox.Lines[i]);
 
                 dt.Rows.Add(row[i]);
@@ -325,6 +324,11 @@ namespace Employee_Checker_CSharp
         private void richTextBox_Learners_TextChanged(object sender, EventArgs e)
         {
             btn_Compare.Enabled = true;
+        }
+
+        private void btn_Compare_Click(object sender, EventArgs e)
+        {
+            tab_Employees.SelectTab(tabPage_Compare);
         }
     }
 }
