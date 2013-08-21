@@ -57,14 +57,18 @@
             this.btn_Calculate = new System.Windows.Forms.Button();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.lbl_Message = new System.Windows.Forms.Label();
+            this.dataGridView_Missing = new System.Windows.Forms.DataGridView();
+            this.EmployeeMissing = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
             this.tab_Employees.SuspendLayout();
             this.tabPage_Gradebook.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_gradeBook)).BeginInit();
             this.tabPage_Learners.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Learners)).BeginInit();
+            this.tabPage_Compare.SuspendLayout();
             this.groupBox_toolBox.SuspendLayout();
             this.groupBox_Actions.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Missing)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -249,6 +253,7 @@
             // 
             // tabPage_Compare
             // 
+            this.tabPage_Compare.Controls.Add(this.dataGridView_Missing);
             this.tabPage_Compare.Location = new System.Drawing.Point(4, 23);
             this.tabPage_Compare.Name = "tabPage_Compare";
             this.tabPage_Compare.Padding = new System.Windows.Forms.Padding(3);
@@ -376,6 +381,27 @@
             this.lbl_Message.TabIndex = 11;
             this.lbl_Message.Text = "Output Message Here";
             // 
+            // dataGridView_Missing
+            // 
+            this.dataGridView_Missing.AllowUserToAddRows = false;
+            this.dataGridView_Missing.AllowUserToDeleteRows = false;
+            this.dataGridView_Missing.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_Missing.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.EmployeeMissing});
+            this.dataGridView_Missing.Location = new System.Drawing.Point(152, 24);
+            this.dataGridView_Missing.Name = "dataGridView_Missing";
+            this.dataGridView_Missing.ReadOnly = true;
+            this.dataGridView_Missing.Size = new System.Drawing.Size(383, 333);
+            this.dataGridView_Missing.TabIndex = 0;
+            // 
+            // EmployeeMissing
+            // 
+            this.EmployeeMissing.HeaderText = "EmployeeMissing";
+            this.EmployeeMissing.MinimumWidth = 10;
+            this.EmployeeMissing.Name = "EmployeeMissing";
+            this.EmployeeMissing.ReadOnly = true;
+            this.EmployeeMissing.Width = 200;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -401,9 +427,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_gradeBook)).EndInit();
             this.tabPage_Learners.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Learners)).EndInit();
+            this.tabPage_Compare.ResumeLayout(false);
             this.groupBox_toolBox.ResumeLayout(false);
             this.groupBox_Actions.ResumeLayout(false);
             this.groupBox_Actions.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Missing)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -439,6 +467,8 @@
         private System.Windows.Forms.Button btn_convertLearners;
         private System.Windows.Forms.RichTextBox richTextBox_Learners;
         public System.Windows.Forms.Button btn_clearRichTextBox;
+        private System.Windows.Forms.DataGridView dataGridView_Missing;
+        private System.Windows.Forms.DataGridViewTextBoxColumn EmployeeMissing;
     }
 }
 

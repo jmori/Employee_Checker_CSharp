@@ -20,6 +20,9 @@ namespace Employee_Checker_CSharp
         private int employeeCount;
         private bool listParsed;
 
+        private DataTable gradeBookTable;
+        private DataTable learnersTable;
+
         public Form1()
         {
             InitializeComponent();
@@ -54,15 +57,14 @@ namespace Employee_Checker_CSharp
             List<string> sheets = ListSheetInExcel(gradeBookPath);
 
             OleDbDataAdapter myDataAdapter = new OleDbDataAdapter("Select * from [" + sheets[0] + "]", conn);
-            DataTable dt = new DataTable();
 
-            myDataAdapter.Fill(dt);
+            gradeBookTable = new DataTable();
 
-            aDataGrid.DataSource = dt;
+            myDataAdapter.Fill(gradeBookTable);
 
-            //lbl_Message.Text = "There are " + aDataGrid.RowCount + " employees";
+            aDataGrid.DataSource = gradeBookTable;
+
             displayMessage("There are " + aDataGrid.RowCount + " employees");
-
         }
 
         /*
@@ -274,31 +276,32 @@ namespace Employee_Checker_CSharp
             return employees;
         }
 
+        //Creates table for the Learners group, and fills up the Learners DataGridView
         private void createTable(RichTextBox aRichTextBox)
         {
-            DataTable dt = new DataTable("Learners");
+            learnersTable = new DataTable("Learners");
 
             //Create the columns in the datatable
             DataColumn c0 = new DataColumn("#");
             DataColumn c1 = new DataColumn("Name");
 
             //Add the created columns to the Datatable
-            dt.Columns.Add(c0);
-            dt.Columns.Add(c1);
+            learnersTable.Columns.Add(c0);
+            learnersTable.Columns.Add(c1);
 
             DataRow[] row = new DataRow[employeeCount];
 
             //Create rows
             for (int i = 0; i < employeeCount; i++)
             {
-                row[i] = dt.NewRow();
+                row[i] = learnersTable.NewRow();
                 row[i].SetField(0, i+1);
                 row[i].SetField(1, aRichTextBox.Lines[i]);
 
-                dt.Rows.Add(row[i]);
+                learnersTable.Rows.Add(row[i]);
             }
 
-            dataGridView_Learners.DataSource = dt;
+            dataGridView_Learners.DataSource = learnersTable;
 
             displayMessage("There are " + richTextBox_Learners.Lines.Length + " employees in this group");
         }
@@ -329,6 +332,23 @@ namespace Employee_Checker_CSharp
         private void btn_Compare_Click(object sender, EventArgs e)
         {
             tab_Employees.SelectTab(tabPage_Compare);
+
+            compareDataTable(gradeBookTable, learnersTable);
+        }
+
+        private void compareDataTable(DataTable aGradeBookTable, DataTable aLearnersTable)
+        {
+            Console.WriteLine("Learners table:");
+
+            //Compare the tables and output the names that doesn't in GradeBook
+            for (int i = 0; i < aGradeBookTable.Rows.Count; i++)
+            {
+                if (i <= aLearnersTable.Rows.Count)
+                {
+                    if (String.Equals(aLearnersTable.Rows[i][1].ToString(), aGradeBookTable.Rows[i][0].ToString()))
+                        Console.WriteLine(aLearnersTable.Rows[i][1]);
+                }
+            }
         }
     }
 }
