@@ -350,5 +350,62 @@ namespace Employee_Checker_CSharp
                 }
             }
         }
+
+        private void printDocument_GradeBook_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            //custom draws the grid from the data
+            int columnPosition = 0;
+            int rowPosition = 25;
+
+            //Draw headers
+            drawHeader(dataGridView_gradeBook, new Font(this.Font, FontStyle.Bold), e.Graphics, ref columnPosition, ref rowPosition);
+            
+            //Draw each row
+            DrawGridBody(dataGridView_gradeBook, e.Graphics, ref columnPosition, ref rowPosition);
+        }
+
+        private int drawHeader(DataGridView aDataGridView, Font boldFont, Graphics g, ref int columnPosition, ref int rowPosition)
+        {
+            foreach (DataGridViewColumn dc in aDataGridView.Columns)
+            {
+                g.DrawString(dc.HeaderText, boldFont, Brushes.Black, (float)columnPosition, (float)rowPosition);
+                columnPosition += dc.Width + 5;
+            }
+
+            return columnPosition;
+        }
+
+        private void DrawGridBody(DataGridView aDataGridView, Graphics g, ref int columnPosition, ref int rowPosition)
+        {
+            //loop through each row and dra the data to the graphics
+            //surface
+            foreach(DataRow dr in (((DataTable)aDataGridView.DataSource).Rows))
+            {
+                columnPosition = 0;
+
+                //draw a line to separate the rows
+                g.DrawLine(Pens.Black, new Point(0, rowPosition), new Point(this.Width, rowPosition));
+
+                //loop through each column in the row and
+                //draw the individual data item
+                foreach (DataGridViewColumn dc in aDataGridView.Columns)
+                {
+                    //just draw string in the column
+                    string text = dr[dc.DataPropertyName].ToString();
+                    g.DrawString(text, this.Font, Brushes.Black, (float)columnPosition, (float)rowPosition + 20f);
+
+                    //go to the next column position
+                    columnPosition += dc.Width + 5;
+                }
+
+                //go to the next row position
+                rowPosition = rowPosition + 65;
+            }
+        }
+
+        private void btn_print_Click(object sender, EventArgs e)
+        {
+            printDocument_GradeBook.Print();
+        }
     }
 }

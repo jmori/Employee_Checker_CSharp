@@ -47,8 +47,10 @@
             this.richTextBox_Learners = new System.Windows.Forms.RichTextBox();
             this.dataGridView_Learners = new System.Windows.Forms.DataGridView();
             this.tabPage_Compare = new System.Windows.Forms.TabPage();
+            this.dataGridView_Missing = new System.Windows.Forms.DataGridView();
+            this.EmployeeMissing = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btn_print = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.groupBox_toolBox = new System.Windows.Forms.GroupBox();
@@ -57,8 +59,7 @@
             this.btn_Calculate = new System.Windows.Forms.Button();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.lbl_Message = new System.Windows.Forms.Label();
-            this.dataGridView_Missing = new System.Windows.Forms.DataGridView();
-            this.EmployeeMissing = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.printDocument_GradeBook = new System.Drawing.Printing.PrintDocument();
             this.menuStrip1.SuspendLayout();
             this.tab_Employees.SuspendLayout();
             this.tabPage_Gradebook.SuspendLayout();
@@ -66,9 +67,9 @@
             this.tabPage_Learners.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Learners)).BeginInit();
             this.tabPage_Compare.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Missing)).BeginInit();
             this.groupBox_toolBox.SuspendLayout();
             this.groupBox_Actions.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Missing)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -262,6 +263,27 @@
             this.tabPage_Compare.Text = "Missing from GradeBook";
             this.tabPage_Compare.UseVisualStyleBackColor = true;
             // 
+            // dataGridView_Missing
+            // 
+            this.dataGridView_Missing.AllowUserToAddRows = false;
+            this.dataGridView_Missing.AllowUserToDeleteRows = false;
+            this.dataGridView_Missing.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_Missing.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.EmployeeMissing});
+            this.dataGridView_Missing.Location = new System.Drawing.Point(152, 24);
+            this.dataGridView_Missing.Name = "dataGridView_Missing";
+            this.dataGridView_Missing.ReadOnly = true;
+            this.dataGridView_Missing.Size = new System.Drawing.Size(383, 333);
+            this.dataGridView_Missing.TabIndex = 0;
+            // 
+            // EmployeeMissing
+            // 
+            this.EmployeeMissing.HeaderText = "EmployeeMissing";
+            this.EmployeeMissing.MinimumWidth = 10;
+            this.EmployeeMissing.Name = "EmployeeMissing";
+            this.EmployeeMissing.ReadOnly = true;
+            this.EmployeeMissing.Width = 200;
+            // 
             // tabPage1
             // 
             this.tabPage1.Location = new System.Drawing.Point(4, 23);
@@ -272,18 +294,19 @@
             this.tabPage1.Text = "GradeBook merged with missing Learners ";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // btn_print
             // 
-            this.button1.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
-            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(18, 19);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(143, 50);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Print";
-            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button1.UseVisualStyleBackColor = true;
+            this.btn_print.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_print.Image = ((System.Drawing.Image)(resources.GetObject("btn_print.Image")));
+            this.btn_print.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_print.Location = new System.Drawing.Point(18, 19);
+            this.btn_print.Name = "btn_print";
+            this.btn_print.Size = new System.Drawing.Size(143, 50);
+            this.btn_print.TabIndex = 5;
+            this.btn_print.Text = "Print";
+            this.btn_print.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btn_print.UseVisualStyleBackColor = true;
+            this.btn_print.Click += new System.EventHandler(this.btn_print_Click);
             // 
             // button2
             // 
@@ -314,7 +337,7 @@
             // 
             // groupBox_toolBox
             // 
-            this.groupBox_toolBox.Controls.Add(this.button1);
+            this.groupBox_toolBox.Controls.Add(this.btn_print);
             this.groupBox_toolBox.Controls.Add(this.button3);
             this.groupBox_toolBox.Controls.Add(this.button2);
             this.groupBox_toolBox.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -381,26 +404,9 @@
             this.lbl_Message.TabIndex = 11;
             this.lbl_Message.Text = "Output Message Here";
             // 
-            // dataGridView_Missing
+            // printDocument_GradeBook
             // 
-            this.dataGridView_Missing.AllowUserToAddRows = false;
-            this.dataGridView_Missing.AllowUserToDeleteRows = false;
-            this.dataGridView_Missing.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView_Missing.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.EmployeeMissing});
-            this.dataGridView_Missing.Location = new System.Drawing.Point(152, 24);
-            this.dataGridView_Missing.Name = "dataGridView_Missing";
-            this.dataGridView_Missing.ReadOnly = true;
-            this.dataGridView_Missing.Size = new System.Drawing.Size(383, 333);
-            this.dataGridView_Missing.TabIndex = 0;
-            // 
-            // EmployeeMissing
-            // 
-            this.EmployeeMissing.HeaderText = "EmployeeMissing";
-            this.EmployeeMissing.MinimumWidth = 10;
-            this.EmployeeMissing.Name = "EmployeeMissing";
-            this.EmployeeMissing.ReadOnly = true;
-            this.EmployeeMissing.Width = 200;
+            this.printDocument_GradeBook.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument_GradeBook_PrintPage);
             // 
             // Form1
             // 
@@ -428,10 +434,10 @@
             this.tabPage_Learners.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Learners)).EndInit();
             this.tabPage_Compare.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Missing)).EndInit();
             this.groupBox_toolBox.ResumeLayout(false);
             this.groupBox_Actions.ResumeLayout(false);
             this.groupBox_Actions.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Missing)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -452,7 +458,7 @@
         private System.Windows.Forms.TabPage tabPage_Gradebook;
         private System.Windows.Forms.TabPage tabPage_Learners;
         private System.Windows.Forms.TabPage tabPage_Compare;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btn_print;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.DataGridView dataGridView_gradeBook;
@@ -469,6 +475,7 @@
         public System.Windows.Forms.Button btn_clearRichTextBox;
         private System.Windows.Forms.DataGridView dataGridView_Missing;
         private System.Windows.Forms.DataGridViewTextBoxColumn EmployeeMissing;
+        private System.Drawing.Printing.PrintDocument printDocument_GradeBook;
     }
 }
 
